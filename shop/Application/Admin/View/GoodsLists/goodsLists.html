@@ -1,0 +1,185 @@
+<layout name="../../../Resource/View/master"/>
+<style>
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+</style>
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+    <li><a href="#">商品管理</a></li>
+    <li><a href="#">货品列表</a></li>
+</ul>
+<div class="m-b-md">
+    <h3 class="m-b-none">货品列表</h3>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <section class="panel panel-default">
+            <header class="panel-heading font-bold">货品列表</header>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>货品ID</th>
+                        <volist name="spec" id="v">
+                            <th>{$v}</th>
+                        </volist>
+                        <th>库存</th>
+                        <th>货号</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <volist name="goodsLists" id="v">
+                        <tr>
+                            <td>{$v['glid']}</td>
+                            <volist name="v['combine']" id="vv">
+                                <td>{$vv}</td>
+                            </volist>
+                            <td class="total">{$v['total']}</td>
+                            <td class="gnumber">{$v['gnumber']}</td>
+                            <td style="min-width: 180px;">
+                                <a href="javascript:;" glid="{$v['glid']}" data-toggle="modal" data-target="#edit_modal" class="btn btn-info edit"><i
+                                        class="fa fa-edit fa-xs"></i> 编辑</a>
+                                <a href="{:u('del',['glid'=>$v['glid'],'gid'=>i('get.gid')])}" class="btn btn-danger"><i
+                                        class="fa fa-trash fa-xs"></i> 删除</a>
+                            </td>
+                        </tr>
+                    </volist>
+                    <!--添加货品-->
+                    <form action="" method="post">
+                        <tr>
+                            <td>
+                                <if condition="i('get.glid')">编辑
+                                    <else/>
+                                    添加
+                                </if>
+                                货品
+                            </td>
+                            <volist name="specData" id="v">
+                                <td>
+                                    <select name="combine[{$Think.lang.$key}]" class="combine">
+                                        <option value="0">请选择{$Think.lang.$key}</option>
+                                        <volist name="v" id="vv">
+                                            <option value="{$vv['gaid']}">{$vv['gavalue']}</option>
+                                        </volist>
+                                    </select>
+                                </td>
+                            </volist>
+
+                            <td>库存<input type="number" name="total" value="{$oldData['total']}"></td>
+                            <td>货号<input type="number" name="gnumber" value="{$oldData['gnumber']}"></td>
+                            <td>
+                                <input type="submit" value="提交" class="btn btn-primary">
+                            </td>
+                        </tr>
+                    </form>
+                    <!--<tr>-->
+                    <!--<td  colspan="7">-->
+                    <!--<div class="pages">-->
+                    <!--{$page}-->
+                    <!--</div>-->
+                    <!--</td>-->
+                    <!--</tr>-->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="" method="post" id="form-modal" class="form-horizontal">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span
+                                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">货品编辑</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">库存</label>
+                                    <div class="col-sm-3">
+                                        <input type="text"　class="form-control" name="total">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">货号</label>
+                                    <div class="col-sm-3">
+                                        <input type="text"　class="form-control" name="gnumber">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="hidden" value="" name="glid">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary submit">修改</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<script>
+    function controller($scope, $, _) {
+        $(function () {
+//            下拉验证
+            var sel = $('.combine');
+            var len = sel.length;
+            sel.change(function () {
+                var arr = {};
+                for (var i = 0; i < len; i++) {
+                    var val = sel.eq(i).val();
+                    if (val == 0) {
+                        return;
+                    } else {
+                        arr[i] = val;
+                    }
+                }
+//                console.log(arr);
+                $.post("{:u('admin/goodsLists/ajaxCheckSpec',['gid'=>i('get.gid')])}", arr, function (data) {
+                    if (data == 0) {
+                        alert('该规格组合已存在！');
+                        sel.val(0);
+                    }
+                }, 'json');
+            })
+
+//          列表编辑按钮事件，点击就将当前行的数据放到模态框的表单中
+            $(document).on('click','.edit',function(){
+//                获取glid
+                var glid = $(this).attr('glid');
+//                获取total
+                var total = $(this).parent().siblings('.total').html();
+//                获取gnumber
+                var gnumber = $(this).parent().siblings('.gnumber').html();
+//                抓取模态框表单元素·
+                var edit_model = $('#edit_modal');
+//                将glid赋值到模态框隐藏域
+                edit_model.find('input[name=glid]').val(glid);
+                edit_model.find('input[name=total]').val(total);
+                edit_model.find('input[name=gnumber]').val(gnumber);
+            });
+
+//            模态框表单ajax请求
+            $('#form-modal').submit(function(){
+//                获取货品id
+                var glid = $(this).find('input[name=glid]').val();
+//                表单序列化
+                var data1 = $(this).serialize();
+//                提交ajax请求
+                $.post("{:u('ajaxEditForm')}",data1,function(data){
+//                  请求成功后将返回的数据放到对应位置
+                   $(".edit[glid="+glid+"]").parent().siblings('.total').html(data.total);
+                   $(".edit[glid="+glid+"]").parent().siblings('.gnumber').html(data.gnumber);
+                   $('#edit_modal').modal('hide');
+                },'json');
+                return false;
+            })
+        })
+    }
+</script>
+

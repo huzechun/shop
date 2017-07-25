@@ -1,0 +1,69 @@
+<layout name="../../../Resource/View/master"/>
+<style>
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+</style>
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+    <li><a href="#">商品管理</a></li>
+    <li><a href="#">商品列表</a></li>
+</ul>
+<div class="m-b-md">
+    <h3 class="m-b-none">商品列表</h3>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <section class="panel panel-default">
+            <header class="panel-heading font-bold">商品列表</header>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>商品ID</th>
+                        <th>商品名称</th>
+                        <th>价格</th>
+                        <th>库存</th>
+                        <th>点击次数</th>
+                        <th>添加时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <volist name="goods" id="v">
+                        <tr>
+                            <td>{$v['gid']}</td>
+                            <td style="max-width: 340px;">{$v['gname']}</td>
+                            <td>
+                                市场价：
+                                <del>¥{$v['marketprice']}</del>
+                                <br>
+                                商城价：<span>¥{$v['shopprice']}</span>
+                            </td>
+                            <td>{$v['total']}</td>
+                            <td>{$v['click']}</td>
+                            <td>{:date('Y-m-d H:i:s',$v['time'])}</td>
+                            <td style="min-width: 291px;">
+                                <a href="{:u('goodsLists/goodsLists',['gid'=>$v['gid']])}" class="btn btn-info"><i class="fa fa-list fa-xs"></i> 货品列表</a>&nbsp;&nbsp;
+                                <a href="{:u('editGoods',['gid'=>$v['gid']])}"
+                                   class="btn btn-warning"><i class="fa fa-edit fa-xs"></i> 修改</a>&nbsp;&nbsp;
+                                <a
+                                    href="{:u('del',['gid'=>$v['gid']])}" class="btn btn-danger"><i class="fa fa-trash fa-xs"></i> 删除</a>
+                            </td>
+                        </tr>
+                    </volist>
+                    <tr>
+                        <td  colspan="7">
+                            <div class="pages">
+                                {$page}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+

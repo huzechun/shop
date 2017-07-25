@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>没有搜索到商品页</title>
+<meta name="keywords" content="折扣网搜索页面">
+
+<link rel="shortcut icon" href="__PUBLIC__/Ico/favicon.ico">
+<link href="__PUBLIC__/Css/ec.css" rel="stylesheet" type="text/css">
+
+<link href="__PUBLIC__/Css/main.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/Js/jsapi.js" namespace="ec"></script><!--[if lte IE 6]><script>ol.isIE6=true;</script><![endif]--><!--[if IE 7]><script>ol.isIE7=true;</script><![endif]--><!--[if IE 8]><script>ol.isIE8=true;</script><![endif]-->
+<script src="__PUBLIC__/Js/jquery-1.js"></script>
+<script src="__PUBLIC__/Js/ec_002.js"></script> 
+<script src="__PUBLIC__/Js/ec.js"></script> 
+<Js href="__JQUERY__"/>
+
+</head>
+
+
+
+<body>
+<!------------引入公共头部分---------------->
+<include file="Public/pinkheader"/>
+<include file="Public/searchheader"/>
+<include file="Public/naver" />
+<script src="__PUBLIC__/Js/base.js"></script>
+
+<div class="hr-5"></div>
+<div class="g">
+	<!--搜索-结果数 -->
+	<div class="search-count-area"><h1 class="icon-search">搜索<b>{$keywords}</b>共找到商品<em>0</em>件</h1></div>
+</div>
+<div class="hr-10"></div>
+<div class="g search">
+    <!--<div class="u-3-4">-->
+        <!--搜索 -->
+        <div id="ct-list" class="g-l-none search-area">
+            <div class="h">
+                <!--排序 -升序className：sort-asc  -降序className：sort-desc -没有则不添加className -->
+                <div class="sort-area clearfix">
+                    <ul>
+                    	<li><b>商品排序：</b></li>
+                        <li id="sort-sale" onclick="ec.search.sort('sale_number')" class="sort-desc"><a href="javascript:;" class="sort-sale">销量<s></s></a></li>
+                        <li id="sort-price"><a href="javascript:;" class="sort-price" onclick="ec.search.sort('price')">价格<s></s></a></li>
+                        <li id="sort-register_date"><a href="javascript:;" class="sort-added" onclick="ec.search.sort('register_date')">上架时间<s></s></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="b"> 
+			<!--搜索-空数据 --> 
+        		<div class="search-empty-area">抱歉，没有找到您搜索的相关商品，试试修改搜索词吧！<span style="color:red;"></span>秒后跳转去首页</div> 
+            	<div class="hr-25"></div>
+                <!--分页 -->
+                <div id="search-pager" class="pager"></div>
+            </div>
+        </div>
+    <!--</div>-->
+</div>
+<script type="text/javascript">
+    $(function(){
+	     var empty=$(".search-empty-area").find('span');
+		 var url="{:U('Index/index')}";
+		 var i=8;
+		 go();
+		 setInterval(go,1000);
+		 function go(){
+		     i--;
+			 
+			 empty.html(i);
+			 if(i<=0){
+			    window.location.href=url;
+			 }
+		 
+		 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	});
+
+
+</script>
+<div class="hr-40"></div>
+<script src="__PUBLIC__/Js/search.js"></script><script id="jsapi_loader0" loadtype="insert" type="text/javascript" src="__PUBLIC__/Js/pager-min.js" charset="gbk"></script><script>(function(){var time = 0,el = document.getElementById('jsapi_loader0');if(!el || (el.readyState && 'complete' != el.readyState)){ if(time<10){ setTimeout(arguments.callee,30); time++; }else{ logger.error('load the script of id jsapi_loader0 fail!');} return; }ol._setLoadStatus("ec.pager/pager-min.js","complete");})();</script>
+<script>
+ec.search.keyword="";
+ ec.track99click({"keyword" : ec.search.keyword});
+</script>
+     <!---------------------尾部的内容----------------------------------->
+	 <include file="Public/footer" />
+	 
+	 
+	 
+	 
+</body>
+	
+</html>

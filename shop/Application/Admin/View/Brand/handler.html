@@ -1,0 +1,55 @@
+<layout name="../../../Resource/View/master"/>
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+    <li><a href="#">品牌管理</a></li>
+    <li><a href="#">添加品牌</a></li>
+</ul>
+<div class="m-b-md">
+    <h3 class="m-b-none">添加品牌</h3>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <section class="panel panel-default">
+            <header class="panel-heading font-bold">添加品牌</header>
+            <div class="panel-body">
+                <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="brand" class="col-sm-2 control-label">品牌名</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" value="{$oldData['bname']}" name="bname" id="brand" placeholder="brand...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="brand" class="col-sm-2 control-label">品牌LOGO</label>
+                        <div class="col-sm-3">
+                            <input type="file"　class="form-control" name="logo">
+                            <input type="hidden" class="form-control"name="logo" value="{$oldData['logo']}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="brand" class="col-sm-2 control-label">排序</label>
+                        <div class="col-sm-3">
+                            <input type="number" class="form-control" name="sort" value="{$oldData['sort']}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="brand" class="col-sm-2 control-label">是否热门</label>
+                        <div class="col-sm-5">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="ishot" <if condition="$oldData['ishot']==1">checked</if> value="1">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-11">
+                            <button type="submit" class="btn btn-primary">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+

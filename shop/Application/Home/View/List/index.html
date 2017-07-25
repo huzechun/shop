@@ -1,0 +1,75 @@
+<layout name="master"/>
+</div>
+<!--导航结束-->
+<div class="clear"></div>
+
+</div>
+<!--头部结束-->
+<!--中间开始-->
+<div id="content">
+	<div class="list">
+		<div class="main">
+			<h4 class="listoption">
+				<a href="{:U('home/index/index')}">首页</a>&gt;
+				<foreach name="faterCates" item="v" key="k">
+					<a href="{:U('home/list/index',['cid'=>$v['cid'] ])}">{$v['cname']}</a>&gt;
+				</foreach>
+			</h4>
+			<div class="postion">
+				<foreach name="attrData" item="v" key="k">
+					<?php
+						$temp  = $param;
+						$temp[$k] = 0;
+					?>
+					<dl>
+						<dt>{$v['name']}</dt>
+						<dd>
+							<a href="{:u('home/list/index',['cid'=>$_GET['cid'],'param'=>implode('_',$temp)])}" <?php if($param[$k] == 0){ ?> style="color:red;" <?php } ?> >不限</a>
+							<foreach name="v['value']" item="vv" key="kk">
+								<?php $temp[$k] = $vv['gaid'] ?>
+								<a href="{:u('home/list/index',['cid'=>$_GET['cid'],'param'=>implode('_',$temp)])}" <?php if($param[$k] == $vv['gaid']){ ?> style="color:red;" <?php } ?> >{$vv['gavalue']}</a>
+							</foreach>
+						</dd>
+					</dl>
+
+				</foreach>
+
+
+			</div>
+
+		</div>
+	</div>
+
+	<div class="listcontent">
+		<div class="main">
+			<?php if($goodsData){?>
+			<ul>
+				<foreach name="goodsData" item="v" key="k">
+					<li>
+						<div class="listdesc">
+							<dl class="desc">
+								<a href="{:u('Home/Content/index',['gid'=>$v['gid']])}" class="pro_list">
+									<dt class="pic"><img class="lazy" src="__ROOT__/{$v['pic']}" ></dt>
+									<dd class="cont">
+										<span class="title">{$v['gname']}</span>
+										<span class="price">{$v['shopprice']}</span>
+									</dd>
+								</a>
+								<dd class="btns">
+									<a href="{:u('Home/Content/index',['gid'=>$v['gid']])}" class="add-cart" ><i></i><em>加入购物车</em></a>
+								</dd>
+							</dl>
+						</div>
+
+					</li>
+				</foreach>
+			</ul>
+			<?php }else{ ?>
+			<div style="text-align:center;margin:50px 0;"><span style="color:red;">对不起！商品库中还没有此类商品~</span></div>
+			<?php }?>
+
+		</div>
+	</div>
+</div>
+</div>
+<!--中间结束-->

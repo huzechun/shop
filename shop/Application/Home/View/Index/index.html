@@ -1,0 +1,410 @@
+<layout name="master"/>
+<div class="main hiden">
+    <div class="navHidden">
+        <ul class="list2">
+
+
+            <!--制定输出条数，可以直接用volist标签中的offset="5" length='10'，参考手册中【模板-内置标签-volist】-->
+            <?php $index = 0; ?>
+            <?php foreach($data as $k=>$v){ ?>
+            <?php $index++ ?>
+            <?php if($index<=8){  ?>
+            <li>
+                <a href="{:u('Home/List/index',['cid'=>$v['cid']])}"><i></i><?php echo $v['cname'];?></a>
+                <div class="listhide">
+                    <div class="contentOne">
+                        <?php foreach($v['_data'] as $m=>$n){ ?>
+                        <dl>
+                            <dt><a style="margin-left:0px;padding-left:0px;" href="{:u('Home/List/index',['cid'=>$n['cid']])}"><?php echo $n['cname']?></a></dt>
+
+
+                            <!--判断是否有3级分类，如果没有则直接循环二级分类下的10条商品-->
+                            <?php if($n['tenData']){ ?>
+                                <?php foreach($n['_data'] as $j=>$g){ ?>
+                                <dd>
+                                    <a href="{:u('Home/content/index',['gid'=>$g['gid']])}" class="noo"><?php echo $g['sname']?></a>
+                                </dd>
+                                <?php } ?>
+                            <?php }else{ ?>
+                                <?php foreach($n['_data'] as $j=>$g){ ?>
+                                <dd>
+                                    <a href="{:u('home/list/index',['cid'=>$g['cid']])}" class="noo"><?php echo $g['cname'] ?></a>
+                                </dd>
+                                <?php } ?>
+
+                            <?php }?>
+
+
+
+                        </dl>
+                        <?php } ?>
+                    </div>
+                </div>
+            </li>
+            <?php } ?>
+            <?php } ?>
+
+        </ul>
+    </div>
+    <div class="topad">
+        <div class="righttopad">
+            <a href="{:u('content/index',['gid'=>32])}"><img width="150" src="__PUBLIC__/Home/images/top_right_1.png"/></a>
+            <p>360手机N4A</p>
+            <p class="price">1500.00</p>
+        </div>
+        <div class="righttopad">
+            <a href="{:u('content/index',['gid'=>35])}"><img width="150" src="__PUBLIC__/Home/images/top_right_2.png"/></a>
+            <p>360手机N4S骁龙版</p>
+            <p class="price">899.00</p>
+        </div>
+    </div>
+</div>
+</div>
+<!--导航结束-->
+<div class="clear"></div>
+<!--banner开始-->
+<div class="banner">
+    <ul class="pic">
+       <!-- <li style="background: url('__PUBLIC__/Home/images/1.webp.jpg') no-repeat center center;">
+            <a href=""></a>
+        </li>
+        <li style="background: url(__PUBLIC__/Home/images/2.webp.jpg) no-repeat center center;">
+            <a href=""></a>
+        </li>
+        <li style="background: url(__PUBLIC__/Home/images/3.webp.jpg) no-repeat center center;">
+            <a href=""></a>
+        </li>
+        <li style="background: url(__PUBLIC__/Home/images/4.webp.jpg) no-repeat center center;">
+            <a href=""></a>
+        </li>
+        <li style="background: url(__PUBLIC__/Home/images/5.webp.jpg) no-repeat center center;">
+            <a href=""></a>
+        </li>-->
+
+        <li style="background: url('__PUBLIC__/Home/images/lb1.jpg') no-repeat center center;">
+            <a href=""></a>
+        </li>
+        <li style="background: url(__PUBLIC__/Home/images/lb2.jpg) no-repeat center center;">
+            <a href=""></a>
+        </li>
+        <li style="background: url(__PUBLIC__/Home/images/lb3.jpg) no-repeat center center;">
+            <a href=""></a>
+        </li>
+        <li style="background: url(__PUBLIC__/Home/images/lb4.jpg) no-repeat center center;">
+            <a href=""></a>
+        </li>
+        <li style="background: url(__PUBLIC__/Home/images/lb5.jpg) no-repeat center center;">
+            <a href=""></a>
+        </li>
+
+    </ul>
+    <ul class="dot">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <span class="prev"></span><span class="next"></span>
+</div>
+<!--banner结束-->
+</div>
+<!--头部结束-->
+<!--中间开始-->
+<div id="content">
+    <div class="main">
+        <div class="tip">
+            <ul>
+                <foreach name="tipsData" item="v" key="k">
+                    <li>
+                        <a href="{:U('content/index',['gid'=>$v['gid']])}"><img src="__ROOT__/{$v['pic']}" /></a>
+                        <p class="sname">{$v['sname']}</p>
+                        <p class="price">{$v['shopprice']}</p>
+                    </li>
+                </foreach>
+            </ul>
+        </div>
+        <div class="hot" id="hot">
+        </div>
+
+        <!--楼层一-->
+        <div class="container" id="floor1">
+            <div class="part-title">360手机</div>
+            <div class="part-hot">
+                <span class="hotsou">热搜：</span>
+                <ul>
+                    <li>
+                        <a href="{:U('list/index',['cid'=>10])}" target="_blank">360手机Q5</a>
+                    </li>
+                    <li>|</li>
+                    <li>
+                        <a href="{:U('list/index',['cid'=>10])}" target="_blank">360手机N4S</a>
+                    </li>
+
+                </ul>
+            </div>
+            <a href="{:U('list/index',['cid'=>10])}" target="_blank" class="indexmore">更多</a>
+        </div>
+        <div class="container">
+            <div class="part-left">
+                <a class="part-left1" href="{:U('list/index',['cid'=>10])}" target="_blank">
+                    <img src="__PUBLIC__/Home/images/flot1.webp">
+                </a>
+                <a class="part-left2" href="{:U('list/index',['cid'=>11])}" target="_blank">
+                    <img src="__PUBLIC__/Home/images/shouji.webp">
+                </a>
+            </div>
+            <div class="part-center">
+                <ul>
+                    <foreach name="data360_l" item="v" key="k">
+                        <li>
+                            <a href="{:U('content/index',['gid'=>$v['gid']])}">
+                                <span class="title">{$v['sname']}</span>
+                                <span class="info" style="width">{$v['gname']}</span>
+                                <span class="price">低至7折</span>
+                                <img width="133" src="__ROOT__/{$v['pic']}" />
+                            </a>
+                        </li>
+                    </foreach>
+
+                </ul>
+            </div>
+            <div class="part-right">
+                <p class="part-suggest-title">热销推荐</p>
+                <div class="slideBox">
+                    <div class="slider-film">
+                        <volist name="data360_r" id="v" offset="0" length="4">
+                            <a href="{:U('content/index',['gid'=>$v['gid']])}">
+                                <dl>
+                                    <dt><img src="__ROOT__/{$v['pic']}"></dt>
+                                    <dd class="title">{$v['sname']}</dd>
+                                    <dd class="info">{$v['gname']}</dd>
+                                    <dd class="price"><i class="yen">￥</i>{$v['shopprice']}</dd>
+                                </dl>
+                            </a>
+                        </volist>
+                    </div>
+                    <div class="slider-film">
+                        <volist name="data360_r" id="v" offset="4" length="4">
+                            <a href="{:U('content/index',['gid'=>$v['gid']])}">
+                                <dl>
+                                    <dt><img src="__ROOT__/{$v['pic']}"></dt>
+                                    <dd class="title">{$v['sname']}</dd>
+                                    <dd class="info">{$v['gname']}</dd>
+                                    <dd class="price"><i class="yen">￥</i>{$v['shopprice']}</dd>
+                                </dl>
+                            </a>
+                        </volist>
+                    </div>
+                </div>
+                <div class="slide-point">
+                    <a href="javascript:;" class="curr-point"></a>
+                    <a href="javascript:;"></a>
+                </div>
+
+            </div>
+        </div>
+        <!--楼层二-->
+        <div class="container" id="floor2">
+            <div class="part-title">魅族手机</div>
+            <div class="part-hot">
+                <span class="hotsou">热搜：</span>
+                <ul>
+                    <li>
+                        <a href="{:U('list/index',['cid'=>10])}" target="_blank">魅族手机Q5</a>
+                    </li>
+                    <li>|</li>
+                    <li>
+                        <a href="{:U('list/index',['cid'=>10])}" target="_blank">魅族手机N4S</a>
+                    </li>
+
+                </ul>
+            </div>
+            <a href="{:U('list/index',['cid'=>9])}" target="_blank" class="indexmore">更多</a>
+        </div>
+        <div class="container">
+            <div class="part-left">
+                <a class="part-left1" href="{:U('list/index',['cid'=>10])}" target="_blank">
+                    <img src="__PUBLIC__/Home/images/flot1.webp">
+                </a>
+                <a class="part-left2" href="{:U('list/index',['cid'=>11])}" target="_blank">
+                    <img src="__PUBLIC__/Home/images/shouji.webp">
+                </a>
+            </div>
+            <div class="part-center">
+                <ul>
+                <foreach name="meizu_l" item="v" key="k">
+                    <li>
+                        <a href="{:U('content/index',['gid'=>$v['gid']])}">
+                            <span class="title">{$v['sname']}</span>
+                            <span class="info" style="width">{$v['gname']}</span>
+                            <span class="price">低至7折</span>
+                            <img width="133" src="__ROOT__/{$v['pic']}" />
+                        </a>
+                    </li>
+                </foreach>
+                </ul>
+            </div>
+            <div class="part-right">
+                <p class="part-suggest-title">热销推荐</p>
+                <div class="slideBox">
+                    <div class="slider-film">
+                        <volist name="meizu_l" id="v" offset="0" length="4">
+                            <a href="{:U('content/index',['gid'=>$v['gid']])}">
+                                <dl>
+                                    <dt><img src="__ROOT__/{$v['pic']}"></dt>
+                                    <dd class="title">{$v['sname']}</dd>
+                                    <dd class="info">{$v['gname']}</dd>
+                                    <dd class="price"><i class="yen">￥</i>{$v['shopprice']}</dd>
+                                </dl>
+                            </a>
+                        </volist>
+                    </div>
+                    <div class="slider-film">
+                        <volist name="meizu_r" id="v" offset="4" length="4">
+                            <a href="{:U('content/index',['gid'=>$v['gid']])}">
+                                <dl>
+                                    <dt><img src="__ROOT__/{$v['pic']}"></dt>
+                                    <dd class="title">{$v['sname']}</dd>
+                                    <dd class="info">{$v['gname']}</dd>
+                                    <dd class="price"><i class="yen">￥</i>{$v['shopprice']}</dd>
+                                </dl>
+                            </a>
+                        </volist>
+                    </div>
+                </div>
+                <div class="slide-point">
+                    <a href="javascript:;" class="curr-point"></a>
+                    <a href="javascript:;"></a>
+                </div>
+
+            </div>
+        </div>
+        <!--楼层三-->
+        <div class="container" id="floor3">
+            <div class="part-title">小米手机</div>
+            <div class="part-hot">
+                <span class="hotsou">热搜：</span>
+                <ul>
+                    <li>
+                        <a href="{:U('list/index',['cid'=>10])}" target="_blank">小米手机Q5</a>
+                    </li>
+                    <li>|</li>
+                    <li>
+                        <a href="{:U('list/index',['cid'=>10])}" target="_blank">小米手机N4S</a>
+                    </li>
+
+                </ul>
+            </div>
+            <a href="{:U('list/index',['cid'=>11])}" target="_blank" class="indexmore">更多</a>
+        </div>
+        <div class="container">
+            <div class="part-left">
+                <a class="part-left1" href="{:U('list/index',['cid'=>10])}" target="_blank">
+                    <img src="__PUBLIC__/Home/images/flot1.webp">
+                </a>
+                <a class="part-left2" href="{:U('list/index',['cid'=>11])}" target="_blank">
+                    <img src="__PUBLIC__/Home/images/shouji.webp">
+                </a>
+            </div>
+            <div class="part-center">
+                <ul>
+                    <foreach name="mi_l" item="v" key="k">
+                        <li>
+                            <a href="{:U('content/index',['gid'=>$v['gid']])}">
+                                <span class="title">{$v['sname']}</span>
+                                <span class="info" style="width">{$v['gname']}</span>
+                                <span class="price">低至7折</span>
+                                <img width="133" src="__ROOT__/{$v['pic']}" />
+                            </a>
+                        </li>
+                    </foreach>
+                </ul>
+            </div>
+            <div class="part-right">
+                <p class="part-suggest-title">热销推荐</p>
+                <div class="slideBox">
+                    <div class="slider-film">
+                        <volist name="mi_r" id="v" offset="0" length="4">
+                            <a href="{:U('content/index',['gid'=>$v['gid']])}">
+                                <dl>
+                                    <dt><img src="__ROOT__/{$v['pic']}"></dt>
+                                    <dd class="title">{$v['sname']}</dd>
+                                    <dd class="info">{$v['gname']}</dd>
+                                    <dd class="price"><i class="yen">￥</i>{$v['shopprice']}</dd>
+                                </dl>
+                            </a>
+                        </volist>
+                    </div>
+                    <div class="slider-film">
+                        <volist name="mi_r" id="v" offset="4" length="4">
+                            <a href="{:U('content/index',['gid'=>$v['gid']])}">
+                                <dl>
+                                    <dt><img src="__ROOT__/{$v['pic']}"></dt>
+                                    <dd class="title">{$v['sname']}</dd>
+                                    <dd class="info">{$v['gname']}</dd>
+                                    <dd class="price"><i class="yen">￥</i>{$v['shopprice']}</dd>
+                                </dl>
+                            </a>
+                        </volist>
+                    </div>
+                </div>
+                <div class="slide-point">
+                    <a href="javascript:;" class="curr-point"></a>
+                    <a href="javascript:;"></a>
+                </div>
+
+            </div>
+        </div>
+        <!--楼层-->
+        <div class="container" id="floor4">
+        </div>
+        <div class="container">
+        </div>
+        <!--新品速递-->
+        <div class="newproduct" id="newproduct">
+            <div class="part-title">新品速递</div>
+            <ul class="newproduct-list">
+                <foreach name="newData" item="v" key="k">
+                    <li>
+                        <a href="{:U('content/index',['gid'=>$v['gid']])}" class="new-item">
+                            <dl>
+                                <dt><img class="js-lazyload" src="__ROOT__/{$v['pic']}"></dt>
+                                <dd class="title">{$v['gname']}</dd>
+                                <dd class="price"><span><i class="yen">￥</i>{$v['shopprice']}</span>{:date('Y-m-d',$v['time'])}上新</dd>
+                            </dl>
+                        </a>
+                    </li>
+                </foreach>
+            </ul>
+            <div class="nomore" style="display: block;">没有更多了</div>
+        </div>
+    </div>
+</div>
+<!--中间结束-->
+<!--左侧楼层开始-->
+<div class="floor">
+    <ul>
+        <li class="on1">
+            <a href="javascript:;"><span>1F<br />活动</span></a>
+        </li>
+        <li class="on2">
+            <a href="javascript:;"><span>2F<br />活动</span></a>
+        </li>
+        <li class="on3">
+            <a href="javascript:;"><span>3F<br />活动</span></a>
+        </li>
+        <li class="on4">
+            <a href="javascript:;"><span>4F<br />活动</span></a>
+        </li>
+        <li class="on5">
+            <a href="javascript:;"><span>5F<br />活动</span></a>
+        </li>
+        <li class="on6">
+            <a href="javascript:;"><span>6F<br />活动</span></a>
+        </li>
+    </ul>
+
+</div>
+
+<!--左侧楼层结束-->

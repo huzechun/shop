@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title><?php echo $headConf['title']?></title>
+    <link rel="icon" type="text/css" href="../../../Public/Home/hg.ico" />
+    <?php foreach($headConf['css'] as $k=>$v){ ?>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/{$v}.css" />
+    <?php } ?>
+    <!--用js变量存储购物车异步请求地址-->
+    <script>
+//        ajax异步请求更新购物车,声明变量以便在js文件中使用
+        var ajaxUpdateCart = "{:u('cart/ajaxUpdateCart')}";
+//        ajax异步请求删除购物车中的一条数据，声明变量以便在js文件中使用
+        var ajaxDelCartGoods = "{:u('cart/ajaxDelCartGoods')}";
+//        ajax异步请求修改默认地址，声明变量以便在js文件中使用
+        var ajaxUpdateSelectedAd = "{:u('order/ajaxUpdateSelectedAd')}";
+//        ajax异步请求删除默认地址，声明变量以便在js文件中使用
+        var ajaxDelAddress = "{:u('order/ajaxDelAddress')}";
+    </script>
+    <script src="__PUBLIC__/Home/js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__PUBLIC__/Home/layer/layer.js"></script>
+    <?php foreach($headConf['js'] as $k=>$v){ ?>
+    <script src="__PUBLIC__/Home/js/<?php echo $v ?>.js" type="text/javascript" charset="utf-8"></script>
+    <?php } ?>
+</head>
+<body>
+<!--头部开始-->
+<div id="top">
+    <!--头部灰条就开始-->
+    <div class="topbox">
+        <div class="main">
+            <div class="topleft fl">
+                <a href="javascript:;">欢迎来到Hi购商城</a>
+
+            </div>
+            <div class="topright fr">
+                <div class="login fl">
+                    <?php if(!session('home.uid')){ ?>
+                    <a href="{:U('user/login')}">登录</a>
+                    <a href="{:U('user/reg')}">注册</a>
+                    <?php }else{ ?>
+                    <a href="{:u('order/index')}" style="color:#fff">欢迎您 {:session('home.username')}</a>
+                    <a href="{:U('user/loginOut')}">退出</a>
+                    <?php }?>
+                </div>
+                <span class="fl">|</span>
+                <div class="fcode fl">
+
+                    <a href="{:u('order/index')}">我的订单</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--头部灰条结束-->
+
+    <!--logo区域开始-->
+    <div class="logoRegion">
+        <div class="main">
+            <div class="logo">
+                <a href="{:U('home/index/index')}"><img width="150" src="__PUBLIC__/Home/images/higou.jpeg"/></a>
+            </div>
+            <div class="seachRegion">
+                <div class="seach fl">
+                    <form action="" method="post">
+                        <input type="text" class="seachtxt fl" value="360手机N5" name='page' onkeyup="getPage()" />
+                        <input type="submit" class="btn"   value="" />
+
+                       <!-- <script>
+                            $(function(){
+                                $(".btn").click(function(){
+                                    htmlobj=$.ajax({url:"/jquery/test1.txt",async:false});
+                                    $("#myDiv").html(htmlobj.responseText);
+                                });
+                            });
+                        </script>-->
+
+                        <!--<script>
+                            $(".seachtxt").keydown(function(){
+                                var xx = $(this).val(); //获取文本框中的值搜索
+                                alert(xx);
+
+                            })
+                        </script>-->
+
+                    </form>
+                    <p class="searchkey">
+                        <a href="{:U('list/index',['cid'=>9])}">360手机N5</a>
+                        <a href="{:U('list/index',['cid'=>10])}">360儿童手表5C</a>
+                        <a href="{:U('list/index',['cid'=>11])}">360儿童机器人</a>
+                    </p>
+
+                </div>
+                <style>
+                    .cart-tips ul {
+                        padding:10px 20px;
+                        overflow: hidden;
+                    }
+                    .cart-tips ul li{
+                        overflow: hidden;
+                        height:70px;
+                        line-height:70px;
+                        border-bottom: 1px solid #ccc;
+                    }
+                    .cart-tips ul li:last-child{
+                        border:none;
+                    }
+                    .cart-tips  .pic {
+                        float: left;
+                    }
+                    .cart-tips  .title a{
+                        float: left;
+                        color:#666;
+                        width:142px;
+                        overflow: hidden;
+                        white-space:nowrap;
+                        text-overflow:ellipsis;
+                        margin-left: 10px;
+                    }
+                    .cart-tips  .price_num{
+                        float: left;
+                        margin-left: 30px;
+                    }
+                    .cart-tips  .del{
+                        color:#666;
+                        float: right;
+                    }
+                </style>
+                <script>
+//                    在载入页面的时候出发异步请求，获取购物车中的数量
+                    $(function(){
+                        $.post("{:U('cart/ajaxGetCartNum')}",{},function(res){
+                            if(res){
+                                $('#cart_num').text(res);
+                            }
+                        },'json');
+                    })
+                </script>
+                <div class="topshopcart fr">
+                    <a href="{:U('cart/index')}" class="header-cart"><i></i>我的购物车<span class="cart-size">(<span id="cart_num">0</span>)</span></a>
+                    <div class="cart-tips" style="height:auto;">
+                        <ul>
+                            <li style="text-align:center;">购物车中还没有商品~ 去 <a href="{:U('list/index',['cid'=>1])}" style="color:red;">购物</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <script>
+                    $(function(){
+                        $('.header-cart').mouseenter(function(){
+                            $.post("{:u('cart/ajaxGetCartData')}",{},function(res){
+                                if(res){
+                                    var str= '';
+                                    $.each(res,function(k,v){
+                                        str +=
+                                            '<li>' +
+                                            '<a href="{:u(\'cart/index\')}" class="pic"><img src="__ROOT__/'+v.pic+'" width="50"></a>' +
+                                            '<p class="title"><a href="{:u(\'cart/index\')}">'+v.name+'</a></p>' +
+                                            '<p class="price_num">'+v.price+' X'+v.num+'</p>' +
+                                            '<a href="javascript:;" class="delCartData" ucid="'+v.ucid+'" sid="'+k+'">X</a>' +
+                                            '</li>';
+                                    })
+                                    str = '<ul>'+str+'</ul>';
+                                    $('.header-cart').siblings('.cart-tips').find('ul').replaceWith(str);
+                                }
+                            },'json');
+                        })
+                        $(document).on('click','.delCartData',function(){
+                            var _this= $(this);
+                            $.post("{:U(\'cart/ajaxDelCartData\')}",{ucid:$(this).attr('ucid'),sid:$(this).attr('sid')},function(res){
+                                if(res){
+                                    _this.parent().remove();
+                                    //更新导航左侧我的购物车模块的（0）中的购物车商品数量
+                                    var new_num = $('#cart_num').text()-1;
+                                    $('#cart_num').text(new_num);
+                                }
+                            },'json');
+                        })
+                    })
+                </script>
+            </div>
+
+        </div>
+    </div>
+    <!--logo区域结束-->
+    <!--导航开始-->
+    <div class="navbox">
+        <div class="main">
+            <h5 class="fl"><a href=""><i></i>全部智能酷品</a></h5>
+            <ul class="menu fl">
+                <foreach name="data" item="v" key="k">
+                    <li class="menulist">
+                        <a href="{:u('list/index',['cid'=>$v['cid']])}">{$v['cname']}</a>
+                        <?php if($v['cname']=='手机'){ ?>
+                        <div class="menuHiden">
+                            <ul class="product">
+                                <foreach name="randData" item="vv" key="kk">
+                                    <li>
+                                        <a href="{:U('content/index',['gid'=>$vv['gid']])}"><img style="width:120px;" src="__ROOT__/{$vv['pic']}" /></a>
+                                        <p><a href="{:U('content/index',['gid'=>$vv['gid']])}">{$vv['sname']}</a></p>
+                                        <p><a class="price" href="{:U('content/index',['gid'=>$vv['gid']])}">{$vv['shopprice']}</a></p>
+                                    </li>
+                                </foreach>
+                            </ul>
+                        </div>
+                        <?php }?>
+
+                    </li>
+
+                </foreach>
+            </ul>
+
+        </div>
+
+
+        {__CONTENT__}
+
+
+
+        <!--尾部开始-->
+        <div class="mod-footer">
+           <!-- <div class="foot-bannerw">
+                <div class="foot-banner clearfix">
+                    <div class="banner-item">商城作者简介</div>
+                    <div class="banner-item">友情链接</div>
+                    <div class="banner-item">联系方式</div>
+                    <div class="banner-item">作者微信</div>
+                </div>
+            </div>
+            <div class="foot-containerw">
+                <div class="foot-container clearfix">
+                    <dl class="foot-con">
+                        <dd data-monitor="home_help_freshman">
+                            姓名：
+                        </dd>
+                        <dd>
+                            职业：
+                        </dd>
+                    </dl>
+                    <dl class="foot-con">
+                        <dd data-monitor="home_help_help">
+                            <a href="http://www.songxuyang.com/"> </a>
+                        </dd>
+
+                    </dl>
+                    <dl class="foot-con">
+                        <dd data-monitor="home_help_guide">
+                            手机：
+                        </dd>
+                        <dd>
+                            邮箱：
+                        </dd>
+                    </dl>
+                    <dl class="foot-con">
+                        <dd data-monitor="home_help_guide">
+
+                        </dd>
+
+                    </dl>
+
+                </div>
+            </div>-->
+            <div class="footer-copyright">Hi购商城©2013-2017 京ICP备08010314号-43 京公网安备11000002000006号</div>
+        </div>
+        <!--尾部结束-->
+
+        <!--右边底部返回顶部-->
+        <div class="slidebar" id="slidebar">
+            <ul>
+                <li class="topback">
+                    <a href="javascript:;"></a>
+                </li>
+            </ul>
+        </div>
+        <!--右边底部返回顶部结束-->
+
+</body>
+
+</html>

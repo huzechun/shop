@@ -1,0 +1,48 @@
+<layout name="../../../Resource/View/master" />
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+   <!-- <li><a href="#">类型管理</a></li>-->
+    <li><a href="#">添加角色</a></li>
+</ul>
+<div class="m-b-md">
+    <h3 class="m-b-none">添加角色</h3>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <section class="panel panel-default">
+            <header class="panel-heading font-bold">添加角色</header>
+            <div class="panel-body">
+                <form action="" method="post" class="form-horizontal">
+                	<!--<legend>添加商品类型</legend>-->
+                	<div class="form-group">
+
+                        <label for="title" class="col-sm-2 control-label">角色名称</label>
+                        <div class="col-sm-3">
+                            <input type="text" id="title" class="form-control" value="{$role_name['role_name']}" name="role_name" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">权限列表</label>
+                        <?php foreach($pri_data as $k=>$v):
+                             if(strpos(','.$pri_id.',' , ','.$v['id'].',')!== false)
+                                     $check = 'checked = "checked"';
+                                  else $check = '';
+                             ?>
+                            <div>
+
+                               <input type="checkbox" {$check} id="module" name="$v['id'][]" value="{$v.id}" style="zoom:45%;margin-left:-755px;margin-bottom: -10px " class="form-control"/>
+                               <span style="margin-left: 240px ; margin-top: -10px">{$v.pri_name}</span>
+
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 col-sm-offset-2">
+                            <button type="submit" class="btn btn-primary">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>

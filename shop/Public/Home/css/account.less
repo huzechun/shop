@@ -1,0 +1,395 @@
+@import './index.css';
+
+body{
+    background: white;
+}
+.left{
+    float: left;
+}
+
+.add-radio{
+    .consignee-item{
+                height: 40px;
+                line-height: 40px;
+                position: relative;
+                
+                .radio-img{
+                    display: block;
+                    float: left;
+                    width: 26px;
+                    height: 26px;
+                    position: absolute;
+                    top: 8px;
+                    left: 0px;
+                    background: url(../images/acc.png)no-repeat 0 -212px;
+                }
+                .pitchOn{
+                    background-position-y: -238px;
+                }
+                .radio{
+                    .left;
+                    cursor: pointer;
+                    display: block;
+                    width: 650px;
+                    height: 38px;
+                    .radio-select{
+                            opacity: 0;
+                            width: 26px;
+                            height: 26px;
+                            margin-right: 8px;
+                    }
+                }
+                .compile{
+                    float: right;
+                    height: 40px;
+                    a{
+                        color: #666666;
+                        font-size: 12px;
+                        &:hover{
+                            color: #693;
+                        }
+                    }
+                }
+                
+            }
+}
+
+
+
+
+.body-center{
+    margin: 0px auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 1240px;
+    
+    .center-content{
+        border: 1px solid #ddd;
+        border-top: 5px solid #82C92F;
+        border-radius: 3px 3px 0 0;
+        padding: 0px 30px;
+        .content-header{
+            padding: 16px 10px;
+            border-bottom: 1px solid #E5E5E5;
+            p{
+               color: #000;
+                font-size: 18px;
+                font-weight: 400;
+                font-family: "microsoft yahei";
+                span{
+                    color: red;
+                    font-size: 14px;
+                    padding: 10px;
+                }
+            }
+        }
+        .content-address{
+            padding: 10px;
+            .add-radio;
+            .new-address{
+                    display: block;
+                    height: 35px;
+                    margin-top: 10px;
+                    width: 140px;
+                    background: url(../images/add.png) no-repeat 0 -510px;
+                    
+                }
+                .new-ress{
+                    display: none;
+                }
+                
+//              添加新地址
+            .add-address{
+                background: #F2F2F2;
+                border: solid 1px #E6E6E6;
+                margin: 10px;
+                padding: 20px;
+                 display: none;
+                .public{
+                     border: solid 1px #CCC;
+                            font-size: 14px;
+                            height: 15px;
+                            line-height: 14px;
+                            margin: 10px 0;
+                            padding: 10px;
+                            width: 208px;
+                }
+                .style{
+                            color: #666666;
+                            margin-left: -10px;
+                            b{
+                                margin-right: 10px;
+                                color: #FF7300;
+                            }
+                        }
+                .s-name{
+                        
+                        #name{
+                           
+                        }
+                }
+                .address-s{
+                   
+                    #particular{
+                         border: solid 1px #CCC;
+                        display: block;
+                        font-size: 14px;
+                        height: 78px;
+                        margin: 10px 0;
+                        padding: 10px;
+                        resize: none;
+                        width: 458px;
+                    }
+                }
+                .btn-group{
+                    font-size: 12px;
+                    .btn{
+                        border-radius: 4px;
+                        color: #FFF;
+                        display: inline-block;
+                        height: 29px;
+                        line-height: 28px;
+                        min-width: 56px;
+                        padding: 0 15px;
+                        text-align: center;
+                    }
+                    #btn-bao{
+                        background: #82C92F;
+                        border: none;
+                        cursor: pointer;
+                        width: 86px;
+                        font-size: 12px;
+                    }
+                    .btn-qu{
+                        background: #A4A9AE;
+                    }
+                }
+                
+            }
+        }
+        
+//      选项开始
+
+.options-all{
+        margin: 0 auto 28px;
+        padding: 0 30px;
+        .options-public{
+                border-bottom: 1px #E5E5E5 solid;
+                clear: both;
+                height: 18px;
+                line-height: 18px;
+                *line-height: 22px;
+                padding: 16px 10px;
+                h3{
+                    color: #000;
+                    float: left;
+                    font-size: 18px;
+                    font-weight: 400;
+                    font-family: "microsoft yahei";
+                }
+            }
+        .add-radio;
+    }
+
+
+.options{
+    .w122{
+        width: 122px !important;
+    }
+    
+    .con{
+        border: 1px #D4D4D4 solid;
+        display: none;
+        font-family: "microsoft yahei";
+        padding: 20px 30px;
+        width: 818px;
+        .text{
+            color: #000;
+            font-size: 14px;
+            font-family: "microsoft yahei";
+            line-height: 24px;
+        }
+        .tongyong{
+            background: #F1F1F1;
+            border: 1px #D4D4D4 solid;
+            color: #000;
+            float: left;
+            font-size: 14px;
+            height: 32px;
+            line-height: 32px;
+            margin-right: 10px;
+            text-align: center;
+            width: 118px;
+        }
+        .active{
+            background: #FFF;
+            border-color: #E44656;
+        }
+        .danweiname{
+            margin-top: 10px;
+            display: none;
+        }
+        #danweiname{
+            border: 1px #D4D4D4 solid;
+            color: #000;
+            font-size: 14px;
+            font-family: "microsoft yahei";
+            height: 38px;
+            line-height: 38px;
+            margin-top: 5px;
+            padding: 0 5px;
+            text-align: left;
+            width: 190px;
+        }
+    }
+}
+//选项结束
+     
+     
+     
+//   商品列表  
+.goods{
+    .goodsList{
+        .title{
+            background: #82C92F;
+            border-radius: 3px 3px 0 0;
+            height: 38px;
+            line-height: 38px;
+            padding: 0 10px;
+            ul{
+                li{
+                    float: left;
+                    color: white;
+                }
+                .l1{
+                    text-align: left;
+                    text-indent: 50px;
+                    width: 460px;
+                }
+                .l2{
+                    width: 120px;
+                    text-align: center;
+                }
+                .l3{
+                    width: 70px;
+                    text-align: center;
+                }
+                .l4{
+                    width: 220px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    
+    
+    
+    .goods-cont{
+        border-bottom: 1px #CCC dashed;
+        ul{
+            li{
+                overflow: hidden;
+                .gc1{
+                    color: #363D37;
+                    float: left;
+                    font-size: 14px;
+                    height: 75px;
+                    line-height: 75px;
+                    width: 460px;
+                    img{
+                        float: left;
+                        border: 1px #CCC solid;
+                        height: 73px;
+                        width: 73px;
+                    }
+                    span{
+                        float: left;
+                        margin-left: 20px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        width: 240px;
+                        color: #363D37;
+                        font-size: 14px;
+                        line-height: 75px;
+                        text-align: left;
+                    }
+                }
+                .gc2{
+                    width: 120px;
+                    color: #363D37;
+                    float: left;
+                    font-size: 14px;
+                    height: 75px;
+                    line-height: 75px;
+                    text-align: center;
+                }
+                .gc3{
+                    width: 70px;
+                    color: #363D37;
+                    float: left;
+                    font-size: 14px;
+                    height: 75px;
+                    line-height: 75px;
+                    text-align: center;
+                }
+                .gc4{
+                    color: #FF8301;
+                    float: left;
+                    height: 75px;
+                    line-height: 75px;
+                    text-align: center;
+                    width: 220px;
+                    font-size: 18px;
+                    letter-spacing: 2px;
+                }
+            }
+        }
+    }
+}
+
+.zongji{
+//  border-top: 1px #CCC dashed;
+    color: #000;
+    font-size: 16px;
+    padding: 20px;
+    text-align: right;
+    .color{
+        color: #FF8301;
+    }
+    h3{
+        span{
+            font-size: 36px;
+        }
+    }
+}
+
+.mailTo{
+    color: #333;
+    font-size: 12px;
+    line-height: 30px;
+    margin-top: 15px;
+    padding: 0 20px 0 10px;
+    text-align: right;
+}
+
+    .liji{
+        background: #FF8200;
+        border-radius: 5px;
+        color: #FFF;
+        float: right;
+        font-size: 18px;
+        height: 38px;
+        line-height: 38px;
+        margin-top: 15px;
+        margin-right: 10px;
+        text-align: center;
+        text-decoration: none;
+        width: 140px;
+    }
+}
+}
+
+
+
+

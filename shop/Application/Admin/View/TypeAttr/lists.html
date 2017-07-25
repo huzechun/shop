@@ -1,0 +1,79 @@
+<layout name="../../../Resource/View/master"/>
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+    <li><a href="#">类型管理</a></li>
+    <li><a href="#">类型属性列表</a></li>
+</ul>
+<div class="m-b-md">
+    <h3 class="m-b-none">类型属性列表</h3>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <section class="panel panel-default">
+            <header class="panel-heading font-bold">类型属性列表</header>
+            <div class="panel-body">
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        属性ID
+                                    </th>
+                                    <th>
+                                        属性名称
+                                    </th>
+                                    <th>
+                                        属性类别
+                                    </th>
+                                    <th>
+                                        属性值
+                                    </th>
+                                    <th>
+                                        操作
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name='attr' item='v'>
+                                    <tr class="success">
+                                        <td>
+                                            {$v.taid}
+                                        </td>
+                                        <td>
+                                            {$v.taname}
+                                        </td>
+                                        <td>
+                                            <if condition='$v["tatype"] gt 0'>规格
+                                                <else/>
+                                                属性
+                                            </if>
+                                        </td>
+                                        <td>
+                                            {$v.tavalue}
+                                        </td>
+                                        <td>
+                                            <a href="{:U('TypeAttr/handler',['taid'=>$v['taid'],'tid'=>$v['tid']])}" class="btn btn-warning"><i
+                                                    class="fa fa-edit fa-xs"></i>修改</a>
+                                            <a href="{:U('TypeAttr/del',['taid'=>$v['taid']])}" class="btn btn-danger"><i
+                                                    class="fa fa-trash fa-xs"></i>删除</a>
+                                        </td>
+                                    </tr>
+                                </foreach>
+                                <tr>
+                                    <td colspan='5' align='center'>
+                                        <a href="{:U('handler', array('tid' => $_GET['tid']))}" class="btn btn-primary"><i
+                                                class="icon-pencil icon-white"></i>添加属性</a>
+                                        <a href="{:u('type/lists')}"class="btn btn-primary">返回类型列表</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<layout name="master"/>
+</div>
+<!--导航结束-->
+<div class="clear"></div>
+
+</div>
+<!--头部结束-->
+<!--中间开始-->
+<div id="content">
+    <!--判断购物车中是否有数据-->
+    <?php if($data){ ?>
+    <form action="{:U('Order/getCartData')}" method="post">
+        <div class="car main">
+            <div class="carshop">
+                <div class="cartitle">
+                    <div class="carcheck">
+                        <div class="checkbox">
+                            <span class="check checkon" id="allcheck"></span>
+                        </div>
+                        全选
+                    </div>
+                    <div class="carname">商品名称</div>
+                    <div class="carmoney">单价</div>
+                    <div class="carnum">数量</div>
+                    <div class="carcount">小计</div>
+                    <div class="carhandle">操作</div>
+                </div>
+                <!--判断是否登录，循环不同地方的数据-->
+                <?php if(session('home.uid')){ ?>
+                <foreach name="data" item="v" key="k">
+                    <div class="shopcontent">
+                        <div class="shopcheck">
+                            <div class="checkbox">
+                                <span class="check checkon"></span>
+                                <input type="checkbox" name="ucids[]" value="{$v['ucid']}" checked="checked" >
+                            </div>
+                        </div>
+                        <div class="shopname">
+                            <div class="carimg">
+                                <a href="{:U('Content/index',['gid'=>$v['gid']])}"><img src="__ROOT__/{$v['pic']}"/></a>
+                            </div>
+                            <p>
+                                <a href="{:U('Content/index',['gid'=>$v['gid']])}">{$v['name']}</a><br/>
+                                <span>{$v['options']}&nbsp;</span>
+                            </p>
+                        </div>
+                        <div class="shopmoney">{$v['price']}元</div>
+                        <div class="shopnum">
+                            <a href="javascript:;" sid="{$k}" ucid="{$v['ucid']}" class="num_l">-</a>
+                            <input type="text" id="" value="{$v['num']}"/>
+                            <a href="javascript:;" sid="{$k}" ucid="{$v['ucid']}" class="num_r">+</a>
+                        </div>
+                        <div class="shopcount">{$v['total']}元</div>
+                        <div class="shophandle"><span sid="{$k}" ucid="{$v['ucid']}">x</span></div>
+                    </div>
+                </foreach>
+                <?php }else{?>
+                <foreach name="data" item="v" key="k">
+                    <div class="shopcontent">
+                        <div class="shopcheck">
+                            <div class="checkbox">
+                                <span class="check checkon"></span>
+                            </div>
+                        </div>
+                        <div class="shopname">
+                            <div class="carimg">
+                                <a href="{:U('Content/index',['gid'=>$v['id']])}"><img src="__ROOT__/{$v['pic']}"/></a>
+                            </div>
+                            <p>
+                                <a href="{:U('Content/index',['gid'=>$v['id']])}">{$v['name']}</a><br/>
+                                <foreach name="v['options']" item="vv" key="kk">
+                                <span>{$vv}&nbsp;</span>
+                                </foreach>
+                            </p>
+                        </div>
+                        <div class="shopmoney">{$v['price']}元</div>
+                        <div class="shopnum">
+
+                            <a href="javascript:;" sid="{$k}" class="num_l">-</a>
+                            <input type="text" id="" value="{$v['num']}"/>
+                            <a href="javascript:;" sid="{$k}" class="num_r">+</a>
+                        </div>
+                        <div class="shopcount">{$v['total']}元</div>
+                        <div class="shophandle"><span sid="{$k}">x</span></div>
+                    </div>
+                </foreach>
+                <?php }?>
+            </div>
+            <div class="jiesuan">
+                <div class="jixu"><a href="{:U('list/index')}">继续购物</a></div>
+                <div class="gongji">共计<span id="total_num">{$total_rows}</span>件商品</div>
+                <div class="heji">合计<span id="total_price">{$total}元</span></div>
+                <div class="gou"><input type="submit" value="去结算"/></div>
+            </div>
+        </div>
+    </form>
+    <?php }else{ ?>
+    <div style="text-align: center;height: 300px;line-height: 300px;">
+        <span>购物车中暂无商品！</span><a href="{:U('list/index')}" style="color:red;">继续购物</a>
+    </div>
+    <?php }?>
+
+
+
+</div>
+</div>
+<!--中间结束-->

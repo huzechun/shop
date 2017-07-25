@@ -1,0 +1,338 @@
+<layout name="../../../Resource/View/master"/>
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+    <li><a href="#">商品管理</a></li>
+    <li><a href="#">商品添加</a></li>
+</ul>
+<div class="m-b-md">
+    <h3 class="m-b-none">商品添加</h3>
+</div>
+<section class="panel panel-default">
+    <header class="panel-heading font-bold">商品添加</header>
+    <div class="panel-body">
+        <form class="form-horizontal" action="" method="post">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">所属分类</label>
+                <div class="col-sm-4">
+                    <select name="cid" class="form-control m-b">
+                        <option value="">请选择</option>
+                        <volist name="cateData" id="v">
+                            <option value="{$v['cid']}"
+                            <if condition="$v['tid']==0">disabled</if>
+                            tid="{$v['tid']}">{$v['_cname']}</option>
+                        </volist>
+                    </select>
+                    <input type="hidden" name="tid" value="0">
+                </div>
+            </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">所属品牌</label>
+                <div class="col-sm-4">
+                    <select name="bid" class="form-control m-b">
+                        <option value="">请选择</option>
+                        <volist name="brandData" id="v">
+                            <option value="{$v['bid']}">{$v['bname']}</option>
+                        </volist>
+                    </select>
+                </div>
+            </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">商品名称（详细名称）</label>
+                <div class="col-sm-4">
+                    <input type="text" name="gname" class="form-control rounded">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">商品简名</label>
+                <div class="col-sm-4">
+                    <input type="text" name="sname" class="form-control rounded">
+                </div>
+            </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">商品货号</label>
+                <div class="col-sm-4">
+                    <input type="text" name="gnumber" class="form-control">
+                    <span class="help-block m-b-none">请输入商品货号。。。</span>
+                </div>
+            </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-id-1">单位</label>
+                <div class="col-sm-4">
+                    <input type="text" name="unit" class="form-control" id="input-id-1" value="件">
+                </div>
+            </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">市场价</label>
+                <div class="col-sm-4">
+                    <input type="text" name="marketprice" class="form-control">
+                </div>
+            </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">商城价</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" name="shopprice" placeholder="">
+                </div>
+            </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">点击次数</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" name="click" placeholder="">
+                </div>
+            </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">库存</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" name="total" placeholder="">
+                </div>
+            </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">商品属性</label>
+                <div class="col-sm-8">
+                    <table class="table table-hover">
+                        <tbody id="attr">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+            <div class="form-group goods-spec">
+                <label class="col-sm-2 control-label">商品规格</label>
+                <div class="col-sm-8">
+                    <table class="table table-hover">
+                        <tbody id="spec">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+            <script src="__ROOT__/node_modules/hdjs/js/jquery.min.js"></script>
+            <!--引入uploadify相关js和css-->
+            <script src="__PUBLIC__/uploadify/jquery.uploadify.js"></script>
+            <link rel="stylesheet" href="__PUBLIC__/uploadify/uploadify.css">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">列表图</label>
+                <div class="col-sm-10">
+                    <div class="col-sm-4">
+                        <input type="file" name="file_upload" id="list_pic"/>
+                        <input type="hidden" name="pic" value="">
+                    </div>
+                    <div class="col-sm-8" id="upload_pic_list">
+
+                    </div>
+                    <style>
+                        #upload_pic_list li {
+                            list-style: none;
+                            float: left;
+                            position: relative;
+                            border: 1px solid #000;
+                            margin-right: 18px;
+                        }
+
+                        .del_pic {
+                            position: absolute;
+                            top: -3px;
+                            right: -12px;
+                            color: red;
+                        }
+                    </style>
+                    <script>
+                        $(function () {
+                            $("#list_pic").uploadify({
+                                'successTimeout': 15,
+                                'swf': '__PUBLIC__/uploadify/uploadify.swf',
+                                'uploader': "{:u('admin/goods/ajaxUploadListPic')}",
+                                'buttonText': "请上传图片",
+                                'width': 120,
+                                'fileSizeLimit': '2000KB',
+                                'uploadLimit': 1,
+                                'removeTimeout': 0.4,
+                                'fileTypeExts': '*.gif; *.jpg; *.png',
+                                'onUploadSuccess': function (file, data, response) {
+                                    var li = '<li path="' + data + '"><img width="80px"  src="__ROOT__/' + data + '"/><a href="javascript:;"class="del_pic">X</a></li>';
+                                    $('#upload_pic_list').append(li);
+                                    $('input[name=pic]').val(data);
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">商品图册</label>
+                <div class="col-sm-10">
+                    <div class="col-sm-4">
+                        <input type="file" name="file_upload" id="detail_pic"/>
+                    </div>
+                    <div class="col-sm-8" id="upload_pic_detail">
+
+                    </div>
+                    <style>
+                        #upload_pic_detail li {
+                            list-style: none;
+                            float: left;
+                            position: relative;
+                            border: 1px solid #000;
+                            margin-right: 18px;
+                        }
+                    </style>
+
+                    <script>
+                        $(function () {
+                            $("#detail_pic").uploadify({
+                                'successTimeout': 15,
+                                'swf': '__PUBLIC__/uploadify/uploadify.swf',
+                                'uploader': "{:u('admin/goods/ajaxUploadDetailPic')}",
+                                'buttonText': "请上传图片",
+                                'width': 120,
+                                'fileSizeLimit': '2000KB',
+                                'uploadLimit': 10,
+                                'removeTimeout': 0.4,
+                                'fileTypeExts': '*.gif; *.jpg; *.png',
+                                'onUploadSuccess': function (file, data, response) {
+                                    var li = '<li path="' + data + '"><img width="80px" src="__ROOT__/' + data + '"/><a href="javascript:;"class="del_pic">X</a>';
+                                     li += '<input type="hidden" name="goodsDetailPics[]" value="'+data+'"></li>';
+                                    $('#upload_pic_detail').append(li);
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">商品详情</label>
+                <div class="col-sm-10">
+                    <!-- 配置文件 -->
+                    <script type="text/javascript" src="__PUBLIC__/uEditor/ueditor.config.js"></script>
+                    <!-- 编辑器源码文件 -->
+                    <script type="text/javascript" src="__PUBLIC__/uEditor/ueditor.all.js"></script>
+                    <!-- 实例化编辑器 -->
+                    <textarea name="intro" id="intro" style="width:800px"></textarea>
+                    <script type="text/javascript">
+                        var ue = UE.getEditor('intro');
+                    </script>
+                </div>
+            </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">售后服务</label>
+                <div class="col-sm-10">
+                    <textarea name="service" id="service" style="width:800px"></textarea>
+                    <script type="text/javascript">
+                        var ue = UE.getEditor('service');
+                    </script>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <button class="btn btn-twitter btn-block">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<script>
+    function controller($scope, $, _) {
+        $(function () {
+            $('select[name=cid]').change(function () {
+                var tid = $(':selected', this).attr('tid');
+                $('input[name=tid]').val(tid);
+                $.post("{:u('admin/goods/ajaxGetAttrList')}", {'tid': tid}, function (data) {
+                    if (data != 0) {
+                        var attr, spec, tmp;
+                        for (var i in data) {
+                            tmp = '';
+                            if (data[i].tatype == 0) {
+                                tmp += '<tr>';
+                                tmp += '<td>' + data[i].taname + '</td>';
+                                tmp += '<td>';
+                                tmp += '<select name="attr['+data[i].taid+']" class="form-control m-b">';
+                                tmp += '<option value="">请选择</option>';
+                                var opt = data[i].tavalue.split('|');
+                                var len = opt.length;
+                                for (var j = 0; j < len; ++j) {
+                                    tmp += '<option value="' + opt[j] + '">' + opt[j] + '</option>';
+                                }
+                                tmp += '</select>';
+                                tmp += '</td>';
+                                tmp += '</tr>';
+                            } else {
+                                tmp += '<tr>';
+                                tmp += '<td>' + data[i].taname + '</td>';
+                                tmp += '<td>';
+                                tmp += '<select name="spec['+data[i].taid+'][specAttr][]" class="form-control m-b">';
+                                tmp += '<option value="">请选择</option>';
+                                var opt = data[i].tavalue.split('|');
+                                var len = opt.length;
+                                for (var j = 0; j < len; ++j) {
+                                    tmp += '<option value="' + opt[j] + '">' + opt[j] + '</option>';
+                                }
+                                tmp += '</select>';
+                                tmp += '</td>';
+                                tmp += '<td>附加价格</td>';
+                                tmp += '<td>';
+                                tmp += '<input type="text" name="spec['+data[i].taid+'][addValue][]" class="form-control">';
+                                tmp += '</td>';
+                                tmp += '<td>';
+                                tmp += '<button type="button" class="add-spec btn  btn-facebook btn-block m-b-sm">添加</button>';
+                                tmp += '</td>';
+                                tmp += '</tr>';
+                            }
+                            if (data[i].tatype == 0) {
+                                attr += tmp;
+                            } else {
+                                spec += tmp;
+                            }
+                        }
+                        $('#attr').empty().append(attr);
+                        $('#spec').empty().append(spec);
+
+                    }
+                    else {
+                        $('#attr').empty();
+                        $('#spec').empty();
+                    }
+                }, 'json');
+            });
+
+            //添加一个规格
+            $(document).on('click', '.add-spec', function () {
+                var tr = $(this).parents('tr');
+                var obj = tr.clone();
+                var del = '<button type="button" class="del-spec btn  btn-block btn-danger m-b-sm">删除</button>';
+                obj.find('td').eq(4).find('.add-spec').remove();
+                obj.find('td').eq(4).append(del);
+                tr.after(obj);
+            });
+            //删除一个规格
+            $(document).on('click', '.del-spec', function () {
+                $(this).parents('tr').remove();
+            });
+            //点击删除上传图片
+            $(document).on('click', '.del_pic', function () {
+                var path = $(this).parent().attr('path');
+                var _this = $(this);
+                $.post('{:U("admin/goods/ajaxDelPic")}', {path: path}, function (data) {
+                    _this.parent().remove();
+                });
+
+            })
+
+        })
+
+    }
+</script>
+

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>热门商品_商品搜索_折扣网商城</title>
+<meta name="keywords" content="">
+
+<link rel="shortcut icon" href="__PUBLIC__/Ico/favicon.ico">
+<link href="__PUBLIC__/Css/ec.css" rel="stylesheet" type="text/css">
+
+<link href="__PUBLIC__/Css/main.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/Js/jsapi.js" namespace="ec"></script><!--[if lte IE 6]><script>ol.isIE6=true;</script><![endif]--><!--[if IE 7]><script>ol.isIE7=true;</script><![endif]--><!--[if IE 8]><script>ol.isIE8=true;</script><![endif]-->
+<script src="__PUBLIC__/Js/jquery-1.js"></script>
+<script src="__PUBLIC__/Js/ec_002.js"></script> 
+<script src="__PUBLIC__/Js/ec.js"></script> 
+<!--[if lt IE 9]><script src="__PUBLIC__/Js/html5shiv.js"></script> <![endif]-->
+
+<style>
+#search-pager .current{
+	border:1px solid #ccc;
+	display:inline-block;
+	width:7px;
+	height:16px;
+	font-weight:400;
+	text-align:center;
+	line-height:16px;
+    font-size:12px;
+	padding:0 5px;
+	background:#D2D2D2;
+	margin-left:5px;
+	margin-right:5px;
+}
+#search-pager .num{
+    border:1px solid #ccc;
+	display:inline-block;
+	width:7px;
+	height:16px;
+	font-weight:400;
+	text-align:center;
+	line-height:16px;
+    font-size:12px;
+	padding:0 5px;
+	
+	margin-left:5px;
+	margin-right:5px;
+
+}
+#search-pager .prev{
+    border:1px solid #ccc;
+	display:inline-block;
+	width:7px;
+	height:16px;
+	font-weight:400;
+	text-align:center;
+	line-height:16px;
+    font-size:9px;
+	padding-left:3px;
+	padding-right:5px;
+	
+	margin-left:5px;
+	margin-right:5px;
+}
+
+#search-pager .next{
+    border:1px solid #ccc;
+	display:inline-block;
+	width:7px;
+	height:16px;
+	text-align:center;
+	line-height:16px;
+    font-size:9px;
+	padding-left:3px;
+	padding-right:5px;
+	
+	margin-left:5px;
+	margin-right:5px;
+
+
+}
+</style>
+
+</head>
+
+
+
+<body>
+ <!------引入公共头部------------->
+<include file="Public/pinkheader"/>
+<include file="Public/searchheader"/>
+<include file="Public/naver" />
+<div class="hr-5"></div>
+<div class="g">
+	<!--搜索-结果数 -->
+	<div class="search-count-area"><h1 class="icon-search">搜索<b>{$keywords}</b>共找到商品<em>{$goods_count}</em>件</h1></div>
+</div>
+<div class="hr-10"></div>
+<div class="g search">
+
+        <!--搜索 -->
+        <div id="ct-list" class="g-l-none search-area">
+            <div class="h">
+                <!--排序 -升序className：sort-asc  -降序className：sort-desc -没有则不添加className -->
+                <div class="sort-area clearfix">
+                    <ul>
+                    	<li><b>商品排序：</b></li>
+                        <li id="sort-price"><a href="{:U('Search/index',array('keywords'=>$keywords,'order'=>'price'))}" class="sort-price">价格<s></s></a></li>
+                        <li id="sort-register_date"><a href="{:U('Search/index',array('keywords'=>$keywords,'order'=>'time'))}" class="sort-added" >上架时间<s></s></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="b">
+                <!--商品列表  -->
+                <div class="pro-list">
+                    <ul id="pro-list">
+				<!------------------一个排序------------------->
+				<volist name="list_goods" id="vo">
+					<li>
+						<div>
+						<p class="p-img"><a href="{:U('Product/index',array('g'=>$vo['goods_id']))}" title="{$vo.goods_keywords}" target="_blank"><img src="__UPLOAD__{$vo.goods_tiny_pic}" alt="{$vo.goods_name}"></a></p>
+						<p class="p-price"><b>¥{$vo.goods_original_price}</b></p>
+						<p class="p-name"><a href="{:U('Product/index',array('g'=>$vo['goods_id']))}" title="{$vo.goods_name}" target="_blank"><span class="red">{$vo.goods_name}</span></a></p>
+						
+						  <if condition="$vo['goods_state'] eq '热卖'">
+				                 <i><img  src="__PUBLIC__/Images/1382542488099.png"  style=""></i>
+				          <elseif condition="$vo['goods_state'] eq '新品'"/>
+					              <i><img  src="__PUBLIC__/Images/1382542518162.png"  style=""></i>
+				           <elseif condition="$vo['goods_state'] eq '人气'"/>
+				                  <i><img  src="__PUBLIC__/Images/1382542555129.png"  style=""></i>
+				          <elseif condition="$vo['goods_state'] eq '首发'"/>
+				                  <i><img  src="__PUBLIC__/Images/1382593860805.png"  style=""></i>  
+			              <else/>
+					             <i></i>
+				           </if>
+						</div>
+					</li>
+				 </volist>
+				<!------------------一个排序类------------------->
+
+                    </ul>
+                </div>
+            	<div class="hr-25"></div>
+                <!--分页 -->
+                <div id="search-pager" class="pager">
+				  <!----------------在这里分页-------------------->
+				       {$list_show}
+
+				</div>
+            </div>
+        </div>
+    <!--</div>-->
+</div>
+<div class="hr-40"></div>
+<script src="__PUBLIC__/Js/search.js"></script><script id="jsapi_loader0" loadtype="insert" type="text/javascript" src="__PUBLIC__/Js/pager-min.js" charset="gbk"></script><script>(function(){var time = 0,el = document.getElementById('jsapi_loader0');if(!el || (el.readyState && 'complete' != el.readyState)){ if(time<10){ setTimeout(arguments.callee,30); time++; }else{ logger.error('load the script of id jsapi_loader0 fail!');} return; }ol._setLoadStatus("ec.pager/pager-min.js","complete");})();</script>
+
+<include file="Public/footer" />
+</body></html>

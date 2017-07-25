@@ -1,0 +1,195 @@
+<layout name="master"/>
+</div>
+<!--导航结束-->
+<div class="clear"></div>
+
+</div>
+<!--头部结束-->
+<!--中间开始-->
+<div id="content">
+
+
+    <div class="ordercontent main">
+        <div class="orderleft">
+            <div class="ordertitle">
+                <h1>个人中心</h1>
+                <ul>
+                    <li><a href="{:u('index')}">我的订单<span>&gt;</span></a></li>
+                    <li><a href="{:u('manageAddress')}">管理地址<span>&gt;</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <style>
+            .orderlist .list-title {
+                background: #23ac38;
+                color: #FFF;
+                font-size: 14px;
+                height: 36px;
+                line-height: 36px;
+                text-align: center;
+            }
+
+            .orderlist .list-title .list-col1 {
+                border-color: #82C92F;
+                height: 40px;
+                line-height: 40px;
+                padding-left: 40px;
+                text-align: left;
+                width: 371px
+            }
+
+            .orderlist .list-title .list-col2 {
+                border-color: #82C92F;
+                height: 40px;
+                line-height: 40px;
+                width: 200px
+            }
+
+            .orderlist .list-title .list-col3 {
+                border-color: #82C92F;
+                width: 200px
+            }
+
+            .orderlist .list-title .list-col4 {
+                height: 40px;
+                width: 222px;
+                line-height: 40px;
+            }
+
+            .orderlist .list-info {
+                background: #F8F8FA;
+                border: solid 1px #EEE;
+                font-size: 12px;
+                height: 32px;
+                line-height: 32px;
+                padding-left: 20px;
+            }
+
+            .orderlist .list-info .m-r-20 {
+                color: #FF7800;
+                font-weight: 400;
+            }
+
+            .orderlist .order-body {
+                text-align: center;
+
+            }
+
+            .orderlist .order-body .order_list {
+                padding: 20px 25px 0 25px;
+                overflow: hidden;
+            }
+
+            .orderlist .order-body .order_list .order_list_item {
+                margin-bottom: 10px;
+                height: 60px;
+            }
+
+            .orderlist .order-body .order_list .order_list_item .pic {
+                float: left;
+                margin-right: 10px;
+            }
+
+            .orderlist .order-body .order_list .order_list_item .goods_info {
+                float: left;
+            }
+
+            .orderlist .order-body .order_list .order_list_item .goods_info .goods_title {
+                text-overflow: ellipsis;
+                width: 230px;
+                overflow: hidden;
+                white-space: nowrap;
+                display: block;
+                color: #666;
+            }
+
+            .orderlist .order-body .order_list .order_list_item .goods_info p {
+                text-align: left;
+                color: #666;
+                line-height: 30px;
+            }
+
+            .orderlist .order-body .order_list .order_list_item .num {
+                line-height: 60px;
+                float: right;
+            }
+
+            .del_order {
+                color: red;
+            }
+        </style>
+        <div class="orderright">
+            <div class="orderlist">
+                <table>
+                    <tr class="list-title">
+                        <th class="list-col1">订单信息</th>
+                        <th class="list-col2">订单金额</th>
+                        <th class="list-col3">订单状态</th>
+                        <th class="list-col4">操作</th>
+                    </tr>
+
+                    <?php if($orderData){?>
+                    <foreach name="orderData" item="v" key="k">
+                        <tbody>
+                        <tr>
+                            <td colspan="4" class="list-info"> 订单编号： <b class="m-r-20">{$v[0]['order_number']}</b>&nbsp;提交时间：{:date('Y-m-d
+                                H:i:s',$v[0]['time'])}
+                            </td>
+                        </tr>
+                        <tr class="order-body">
+                            <td class="order_list">
+                                <foreach name="v" item="vv" key="kk">
+                                    <div class="order_list_item">
+                                        <a href="{:U('content/index',['gid'=>$vv['gid']])}" class="pic"> <img
+                                                src="__ROOT__/{$vv['pic']}" width="60"></a>
+                                        <div class="goods_info">
+                                            <a href="{:U('content/index',['gid'=>$vv['gid']])}" title="{$vv['gname']}"
+                                               class="goods_title">{$vv['gname']}</a>
+                                            <p>{$vv['price']}</p>
+                                        </div>
+                                        <div class="num">X{$vv['num']}</div>
+                                    </div>
+                                </foreach>
+                            </td>
+                            <td>{$vv['total_price']}元</td>
+                            <td>{$vv['status']}</td>
+                            <td><a href="javascript:;" class="del_order" oid="{$vv['oid']}">删除</a></td>
+                        </tr>
+                        </tbody>
+                    </foreach>
+                    <?php }else{?>
+                    <tr class="order-body">
+                        <td colspan="4" style="height:100px;">您还没有任何订单~</td>
+                    </tr>
+                    <?php }?>
+
+                </table>
+                <script>
+                    $(function () {
+                        $(".del_order").click(function () {
+                            var oid = $(this).attr('oid');
+                            var _this = $(this);
+                            layer.confirm('确认要删除该订单？', function (index) {
+                                $.post("{:u('order/ajaxDelOrder')}", {oid: oid}, function (res) {
+                                    if (res) {
+                                        _this.parents('tbody').remove();
+                                        layer.msg('删除成功！');
+                                    } else {
+                                        layer.msg('删除失败！');
+                                    }
+                                }, 'json');
+                            })
+
+                        })
+                    })
+                </script>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+<!--中间结束-->
